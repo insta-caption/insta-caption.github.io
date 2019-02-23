@@ -1,0 +1,97 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Insta Caption</title>
+  <meta name="description" content="An Instagram caption creator that does not remove line breaks!">
+  <meta name="author" content="@bpmccurdy">
+  <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link href="insta-caption.png" rel="apple-touch-icon">
+  <style>
+    body { 
+      position: absolute; 
+      overflow: hidden;
+      width:100%; 
+      height:100%;
+      margin:0; 
+      padding:0px; 
+      border:0px; 
+    }
+    div {
+      border: 5px solid #fb3958;
+      border-radius: 15px;
+      background-color: white;
+      color:#458eff;
+      padding: 15px;
+      font-weight:900;
+      font-family: Arial;
+      text-align:center;
+      font-size:20pt;
+      margin: 0px 10px 10px 10px;
+    }
+    div:active { 
+      border: 5px solid #458eff;
+    }
+    svg {
+      height:20px;
+      width:20px;
+    }
+    textarea {
+      line-height:20px;
+      font-size:16px;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      border: 5px solid #ffc838;
+      border-radius: 15px;
+      width: calc(100% - 50px);
+      resize: none;
+      outline: none !important;
+      margin: 10px;
+      padding: 10px;
+      font-size:12pt;
+    }
+</style>
+</head>
+<body>
+  <textarea id="caption" placeholder="Your Caption..." rows="10" autofocus></textarea>
+  <div id="button">
+   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="#458eff" d="M433.941 65.941l-51.882-51.882A48 48 0 0 0 348.118 0H176c-26.51 0-48 21.49-48 48v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51 0 48-21.49 48-48v-48h80c26.51 0 48-21.49 48-48V99.882a48 48 0 0 0-14.059-33.941zM266 464H54a6 6 0 0 1-6-6V150a6 6 0 0 1 6-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 0 1-6 6zm128-96H182a6 6 0 0 1-6-6V54a6 6 0 0 1 6-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 0 1-6 6zm6-256h-64V48h9.632c1.591 0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 0 1 1.757 4.243V112z"></path></svg> <span id="status">COPY</span>
+  </div>
+  <script>
+    !function(e,t){if("function"==typeof define&&define.amd)define(["exports"],t);else if("undefined"!=typeof exports)t(exports);else{var o={};t(o),e.bodyScrollLock=o}}(this,function(exports){"use strict";function r(e){if(Array.isArray(e)){for(var t=0,o=Array(e.length);t<e.length;t++)o[t]=e[t];return o}return Array.from(e)}Object.defineProperty(exports,"__esModule",{value:!0});var l=!1;if("undefined"!=typeof window){var e={get passive(){l=!0}};window.addEventListener("testPassive",null,e),window.removeEventListener("testPassive",null,e)}var d="undefined"!=typeof window&&window.navigator&&window.navigator.platform&&/iP(ad|hone|od)/.test(window.navigator.platform),c=[],u=!1,a=-1,s=void 0,v=void 0,f=function(t){return c.some(function(e){return!(!e.options.allowTouchMove||!e.options.allowTouchMove(t))})},m=function(e){var t=e||window.event;return!!f(t.target)||(1<t.touches.length||(t.preventDefault&&t.preventDefault(),!1))},o=function(){setTimeout(function(){void 0!==v&&(document.body.style.paddingRight=v,v=void 0),void 0!==s&&(document.body.style.overflow=s,s=void 0)})};exports.disableBodyScroll=function(i,e){if(d){if(!i)return void console.error("disableBodyScroll unsuccessful - targetElement must be provided when calling disableBodyScroll on IOS devices.");if(i&&!c.some(function(e){return e.targetElement===i})){var t={targetElement:i,options:e||{}};c=[].concat(r(c),[t]),i.ontouchstart=function(e){1===e.targetTouches.length&&(a=e.targetTouches[0].clientY)},i.ontouchmove=function(e){var t,o,n,r;1===e.targetTouches.length&&(o=i,r=(t=e).targetTouches[0].clientY-a,!f(t.target)&&(o&&0===o.scrollTop&&0<r?m(t):(n=o)&&n.scrollHeight-n.scrollTop<=n.clientHeight&&r<0?m(t):t.stopPropagation()))},u||(document.addEventListener("touchmove",m,l?{passive:!1}:void 0),u=!0)}}else{n=e,setTimeout(function(){if(void 0===v){var e=!!n&&!0===n.reserveScrollBarGap,t=window.innerWidth-document.documentElement.clientWidth;e&&0<t&&(v=document.body.style.paddingRight,document.body.style.paddingRight=t+"px")}void 0===s&&(s=document.body.style.overflow,document.body.style.overflow="hidden")});var o={targetElement:i,options:e||{}};c=[].concat(r(c),[o])}var n},exports.clearAllBodyScrollLocks=function(){d?(c.forEach(function(e){e.targetElement.ontouchstart=null,e.targetElement.ontouchmove=null}),u&&(document.removeEventListener("touchmove",m,l?{passive:!1}:void 0),u=!1),c=[],a=-1):(o(),c=[])},exports.enableBodyScroll=function(t){if(d){if(!t)return void console.error("enableBodyScroll unsuccessful - targetElement must be provided when calling enableBodyScroll on IOS devices.");t.ontouchstart=null,t.ontouchmove=null,c=c.filter(function(e){return e.targetElement!==t}),u&&0===c.length&&(document.removeEventListener("touchmove",m,l?{passive:!1}:void 0),u=!1)}else 1===c.length&&c[0].targetElement===t?(o(),c=[]):c=c.filter(function(e){return e.targetElement!==t})}});
+    bodyScrollLock.disableBodyScroll(document.querySelector('#caption'));
+    function copy() {
+      var caption = document.getElementById("caption");
+      console.log(caption);
+      caption.value = caption.value.replace(/([\u0020\u00a0])*(\n|\r|\r\n)/g, "\n").replace(/\n\n/g, "\n\u2063\n");
+      if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
+          caption.contentEditable = true;
+          caption.readOnly = true;
+          var range = document.createRange();
+          range.selectNodeContents(caption);
+          var selection = window.getSelection();
+          selection.removeAllRanges();
+          selection.addRange(range);
+          caption.setSelectionRange(0, 100000);
+          caption.contentEditable = false;
+          caption.readOnly = false;
+      }
+      else {
+          caption.select();
+      }
+      document.execCommand('copy');
+      var status = document.getElementById("status");
+      status.innerText = "Copied!!!";
+      setTimeout(function(){
+        status.innerText = "Copy Again";
+      }, 3000); 
+    }
+    var button = document.getElementById("button");
+    button.onclick = copy;
+  </script>
+</body>
+</html>
